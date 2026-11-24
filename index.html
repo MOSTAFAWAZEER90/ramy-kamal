@@ -294,6 +294,35 @@ h3{font-weight:700}
 .channel .h svg{width:18px;height:18px;color:var(--gold-lo);transition:transform .35s var(--ease)}
 .channel:hover .h svg{transform:translate(-3px,-3px)}
 .projects{grid-template-columns:repeat(3,minmax(0,1fr))}
+/* WhatsApp: floating button, CTAs, contact bands */
+:root{--wa:#25D366;--wa-lo:#128C7E}
+.btn-wa{background:var(--wa);color:#fff;box-shadow:0 12px 30px -12px rgba(37,211,102,.8)}
+.btn-wa:hover{background:var(--wa-lo)}
+.wa-float{position:fixed;z-index:45;bottom:calc(22px + env(safe-area-inset-bottom,0px));inset-inline-start:22px;width:62px;height:62px;border-radius:50%;background:var(--wa);color:#fff;display:grid;place-items:center;box-shadow:0 14px 34px -10px rgba(18,140,126,.9);text-decoration:none;animation:waBlink 1.6s ease-in-out infinite}
+.wa-float svg{width:34px;height:34px}
+.wa-float::before,.wa-float::after{content:"";position:absolute;inset:0;border-radius:50%;border:3px solid var(--wa);animation:waRing 1.8s ease-out infinite;pointer-events:none}
+.wa-float::after{animation-delay:.9s}
+.wa-float .tip{position:absolute;inset-inline-start:74px;white-space:nowrap;background:#fff;color:#0b3d2e;font-weight:700;font-size:.92rem;padding:8px 14px;border-radius:999px;box-shadow:0 10px 24px -12px rgba(0,0,0,.35);opacity:0;transform:translateX(8px);transition:.3s;pointer-events:none}
+.wa-float:hover .tip{opacity:1;transform:none}
+@keyframes waRing{0%{transform:scale(1);opacity:.75}100%{transform:scale(1.75);opacity:0}}
+@keyframes waBlink{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.08);filter:brightness(1.15)}}
+.wa-band{padding:34px 0}
+.wa-band .box{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;padding:26px 30px;border-radius:var(--r);background:linear-gradient(120deg,#0f3d2f,#128C7E 60%,#25D366);color:#fff;box-shadow:0 24px 50px -30px rgba(18,140,126,.9)}
+.wa-band h3{margin:0;font-size:clamp(1.3rem,2.4vw,1.8rem);color:#fff}
+.wa-band p{margin:6px 0 0;opacity:.9}
+.wa-band .acts{display:flex;gap:12px;flex-wrap:wrap}
+.wa-band .btn-wa{background:#fff;color:#0f3d2f}
+.wa-band .btn-wa:hover{background:#eafff2}
+.wa-band .btn-line{color:#fff;border-color:rgba(255,255,255,.6)}
+/* Social cards with profile photo */
+.channel.soc{border-top:4px solid var(--bc)}
+.channel.soc .av{position:relative;width:74px;height:74px}
+.channel.soc .av img{width:74px;height:74px;border-radius:50%;object-fit:cover;object-position:50% 18%;border:3px solid var(--bc);box-shadow:0 8px 22px -10px var(--bc)}
+.channel.soc .av i{position:absolute;bottom:-4px;inset-inline-end:-6px;width:30px;height:30px;border-radius:50%;background:var(--bb,var(--bc));color:#fff;display:grid;place-items:center;border:2px solid var(--paper)}
+.channel.soc .av i svg{width:16px;height:16px}
+.channel.soc .follow{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:#fff;background:var(--bb,var(--bc));padding:6px 16px;border-radius:999px;font-size:.9rem}
+@media (prefers-reduced-motion:reduce){.wa-float,.wa-float::before,.wa-float::after{animation:none}}
+@media print{.wa-float,.wa-band{display:none!important}}
 @media (max-width:1080px){.channels{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.channels{grid-template-columns:1fr}}
 
@@ -1039,13 +1068,6 @@ footer a:hover{color:var(--gold-hi)}
    "text": "فيسبوك وإنستجرام وتيك توك ويوتيوب وثريدز وقناة واتساب وواتساب الأعمال.",
    "handle": "روابط التواصل",
    "url": "links/"
-  },
-  {
-   "icon": "trophy",
-   "label": "من 10 لـ 1",
-   "text": "سلسلة مشتركة بين رامي كمال وأحمد رأفت «مذيع الشارع».",
-   "handle": "ramykamal10to1",
-   "url": "https://ramykamal10to1.vercel.app/"
   }
  ],
  "insights": [
@@ -1094,6 +1116,7 @@ footer a:hover{color:var(--gold-hi)}
   </div>
   <span class="progress" id="progress" aria-hidden="true"></span>
 </header>
+<a class="wa-float" id="wa-float" href="https://wa.me/201000662025" target="_blank" rel="noopener" aria-label="تواصل عبر واتساب"><span class="tip">تواصل واتساب</span></a>
 <button class="to-top" id="to-top" type="button" aria-label="العودة للأعلى"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 
 <main>
@@ -1110,6 +1133,7 @@ footer a:hover{color:var(--gold-hi)}
         <div class="cta in" style="--d:.62s">
           <a class="btn btn-gold" id="cta-work" href="#trending">شاهد أعمالي
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+          <a class="btn btn-wa" data-wa href="https://wa.me/201000662025" target="_blank" rel="noopener">تواصل واتساب</a>
           <a class="btn btn-line" href="#contact">تواصل للتعاون</a>
           <button class="btn btn-line pdf-btn" type="button" data-pdf><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M12 11v6M9.5 14.5 12 17l2.5-2.5"/></svg> تحميل PDF</button>
         </div>
@@ -1372,13 +1396,36 @@ footer a:hover{color:var(--gold-hi)}
   (D.insights||[]).forEach(function(st){ $('insights').appendChild(el('div',{},[el('b',{'class':'gold-text',text:st.value}), el('span',{text:st.label})])); });
   if ((D.insights||[]).length && has(D.insightsNote)) $('insights').appendChild(el('small',{text:D.insightsNote}));
 
+  // WhatsApp: floating button, hero CTA, contact bands every two sections
+  var WA = D.contact.whatsappUrl;
+  if (has(WA)){
+    $('wa-float').href = WA; $('wa-float').insertAdjacentHTML('afterbegin', ICON.WhatsApp);
+    document.querySelectorAll('[data-wa]').forEach(function(a){ a.href = WA; a.insertAdjacentHTML('afterbegin', ICON.WhatsApp); });
+    var bands = [
+      ['about','عندك حالة أو فكرة خير؟','كلّم رامي مباشرة على واتساب الأعمال.'],
+      ['videos','عايز تشارك في الحكاية الجاية؟','رسالة واحدة على واتساب تكفي نبدأ.'],
+      ['media','للتعاون والإعلانات والمبادرات','تواصل مباشر وسريع على واتساب الأعمال.']
+    ];
+    bands.forEach(function(b){
+      var sec = $(b[0]); if (!sec) return;
+      var wa = el('a',{'class':'btn btn-wa',href:WA,target:'_blank',rel:'noopener',html:ICON.WhatsApp}); wa.appendChild(document.createTextNode('تواصل واتساب'));
+      var band = el('div',{'class':'wa-band'},[el('div',{'class':'wrap'},[el('div',{'class':'box'},[
+        el('div',{},[el('h3',{text:b[1]}), el('p',{text:b[2]})]),
+        el('div',{'class':'acts'},[wa, el('a',{'class':'btn btn-line',href:'#contact',text:'كل طرق التواصل'})])
+      ])])]);
+      sec.parentNode.insertBefore(band, sec.nextSibling);
+    });
+  }
+
   // Socials → channels + contact
+  var BRAND = {Facebook:['#1877F2'],Instagram:['#E1306C','linear-gradient(45deg,#fdb34a,#e1306c 55%,#833ab4)'],TikTok:['#FE2C55','#111'],YouTube:['#FF0033'],Threads:['#111']};
   D.socials.forEach(function(s,i){
-    var c = el('a',{'class':'channel',href:s.url,target:'_blank',rel:'noopener'});
-    c.appendChild(el('span',{'class':'ic',html:ICON[s.platform]||''}));
+    var br = BRAND[s.platform]||['#3D1C3C'];
+    var c = el('a',{'class':'channel soc',href:s.url,target:'_blank',rel:'noopener',style:'--bc:'+br[0]+(br[1]?';--bb:'+br[1]:'')});
+    c.appendChild(el('span',{'class':'av'},[el('img',{src:'rami-kamal.jpg',alt:D.name+' على '+s.label,loading:'lazy'}), el('i',{html:ICON[s.platform]||''})]));
     c.appendChild(el('h3',{text:s.label}));
     c.appendChild(el('p',{text:s.text}));
-    var h = el('div',{'class':'h'}); h.appendChild(el('span',{'class':'ltr',text:s.handle})); h.appendChild(el('span',{html:ICON.arrow}));
+    var h = el('div',{'class':'h'}); h.appendChild(el('span',{'class':'ltr',text:s.handle})); h.appendChild(el('span',{'class':'follow',text:'تابع'}));
     c.appendChild(h);
     $('channels-grid').appendChild(c);
     var b = el('a',{'class':'btn btn-ghost btn-sm',href:s.url,target:'_blank',rel:'noopener',html:ICON[s.platform]||''});
